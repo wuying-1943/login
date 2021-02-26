@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/base.css'
-import { Button,Row,Form,FormItem,Input,Message} from 'element-ui';
+import { Button, Row, Form, FormItem, Input, Message, MessageBox } from 'element-ui';
 
 Vue.use(Button);
 Vue.use(Row);
@@ -16,6 +16,7 @@ import axios from 'axios'
 axios.defaults.baseURL = '127.0.0.1:8888/api/private/v1/'
 Vue.prototype.$axios = axios;
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox;
 Vue.config.productionTip = false
 new Vue({
   router,

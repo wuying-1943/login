@@ -3,7 +3,7 @@
     <div class="login-box">
       <!-- 头像区域 -->
       <div class="avatar">
-        <img src="./../assets/logo.png" alt="" />
+        <img src="../../assets/logo.png" alt="" />
       </div>
       <!-- 登录表单 -->
       <el-form
@@ -83,7 +83,7 @@ export default {
               });
               var token = 'UJHHJuiuq543F54SD45FDG';
               sessionStorage.setItem('token',token);
-              this.$router.push('/home');
+              this.$router.push('/');
             } else {
                this.$message.error('账号或密码错误');
             }
@@ -104,7 +104,10 @@ export default {
   width: 100%;
   height: 100vh;
   background: #2b4b6b;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
   .login-box {
     position: absolute;
     top: 50%;
