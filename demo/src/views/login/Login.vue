@@ -3,13 +3,13 @@
     <div class="login-box">
       <h2 class="title">今日头条号</h2>
       <el-form ref="form" :model="form" label-width="60px" :rules="rules">
-        <el-form-item label="账号" prop="name">
-          <el-input v-model="form.user.mobile" placeholder="请输入账号"></el-input>
+        <el-form-item label="账号" prop="mobile">
+          <el-input v-model="form.mobile" placeholder="请输入账号"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input
-            v-model="form.user.code"
-            type="password"
+            v-model="form.code"
+            type="code"
             placeholder="请输入密码"
           ></el-input>
         </el-form-item>
@@ -19,7 +19,9 @@
           >
         </el-form-item>
         <div class="btn">
-          <el-button type="primary" @click="submitForm('form')"
+          <el-button
+            type="primary"
+            @click="submitForm('form')"
             >登 录</el-button
           >
           <el-button @click="resetForm('form')" type="info">重 置</el-button>
@@ -33,32 +35,28 @@ import request from "@/api/request";
 export default {
   name: "Login",
   data() {
-    var checkAgree = (rule,value,callback) => {
-       if (!value) {
-          return callback(new Error('请同意隐私协议'));
-        }
-        callback();
-    }
+    var checkAgree = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("请同意隐私协议"));
+      }
+      callback();
+    };
     return {
       form: {
-        user:{
-          mobile: "13911111111",
-          code: "246810",
-        },
-         agree:false,
+        mobile: "13911111111",
+        code: "246810",
+        agree: false,
       },
       rules: {
-        name: [
+        mobile: [
           { required: true, message: "请输入账号", trigger: "blur" },
           { min: 5, max: 14, message: "账户由5-14位字符组成", trigger: "blur" },
         ],
-        password: [
+        code: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, max: 14, message: "密码由6-14位字符组成", trigger: "blur" },
         ],
-        agree: [
-            {validator: checkAgree, trigger: 'change' }
-          ],
+        agree: [{ validator: checkAgree, trigger: "change" }],
       },
     };
   },
@@ -70,18 +68,32 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          const loading = this.$loading({
+            lock: true,
+            text: "Loading",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)",
+          });
           request({
             method: "POST",
             url: "/mp/v1_0/authorizations",
-            data: this.form.user
+            data: {
+              mobile: "13911111111",
+              code: "246810",
+            },
           })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          console.log(this.form.name, this.form.password);
+          .then((res) => {
+            setTimeout(() => {
+              loading.close();
+              this.$message({
+                message: "登陆成功!",
+                type: "success",
+              });
+            }, 500);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         } else {
           return false;
         }
