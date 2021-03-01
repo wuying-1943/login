@@ -4,19 +4,16 @@ import router from './router'
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/base.css'
-import { Button, Row, Form, FormItem, Input, Message, MessageBox } from 'element-ui';
+import VueUeditorWrap from 'vue-ueditor-wrap'
+Vue.component('vue-ueditor-wrap', VueUeditorWrap)
+import { Button, Row, Form, FormItem, Input, Message, MessageBox,Table,TableColumn} from 'element-ui';
 
-Vue.use(Button);
-Vue.use(Row);
-Vue.use(Form);
-Vue.use(FormItem);
-Vue.use(Input);
+Vue.use(Button).use(Row).use(Form).use(FormItem).use(Input).use(Table).use(TableColumn)
 
 import axios from 'axios'
-axios.defaults.baseURL = '127.0.0.1:8888/api/private/v1/'
 Vue.prototype.$axios = axios;
 Vue.prototype.$message = Message;
-Vue.prototype.$confirm = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false
 new Vue({
   router,

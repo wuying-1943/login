@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <Nav></Nav>
+    <h2>头条内容发布</h2>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Nav from './components/nav/Nav'
 export default {
   name: "App",
-  components:{
-    Nav
-  },
   mounted() {},
+  mounted() {
+    
+  },
 };
 </script>
 <style lang="scss"></style>

@@ -82,7 +82,9 @@ export default {
                 type: "success",
               });
               var token = 'UJHHJuiuq543F54SD45FDG';
+              sessionStorage.setItem('name',"admin");
               sessionStorage.setItem('token',token);
+              this.$store.commit('setUser',{name:"admin",token})
               this.$router.push('/');
             } else {
                this.$message.error('账号或密码错误');
